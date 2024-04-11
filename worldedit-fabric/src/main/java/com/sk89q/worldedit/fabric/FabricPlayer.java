@@ -74,7 +74,7 @@ public class FabricPlayer extends AbstractPlayerActor {
     @Override
     public BaseItemStack getItemInHand(HandSide handSide) {
         ItemStack is = this.player.getItemInHand(handSide == HandSide.MAIN_HAND ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
-        return FabricAdapter.adapt(is, this.player.registryAccess());
+        return FabricAdapter.adapt(is);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class FabricPlayer extends AbstractPlayerActor {
 
     @Override
     public void giveItem(BaseItemStack itemStack) {
-        this.player.getInventory().add(FabricAdapter.adapt(itemStack, this.player.registryAccess()));
+        this.player.getInventory().add(FabricAdapter.adapt(itemStack));
     }
 
     @Override

@@ -262,7 +262,7 @@ public class FabricWorld extends AbstractWorld {
     @Override
     public boolean useItem(BlockVector3 position, BaseItem item, Direction face) {
         ServerLevel world = (ServerLevel) getWorld();
-        ItemStack stack = FabricAdapter.adapt(new BaseItemStack(item.getType(), item.getNbtReference(), 1), world.registryAccess());
+        ItemStack stack = FabricAdapter.adapt(new BaseItemStack(item.getType(), item.getNbtReference(), 1));
         final WorldEditFakePlayer fakePlayer;
         try {
             fakePlayer = fakePlayers.get(world);
@@ -296,7 +296,7 @@ public class FabricWorld extends AbstractWorld {
             return;
         }
 
-        ItemEntity entity = new ItemEntity(getWorld(), position.x(), position.y(), position.z(), FabricAdapter.adapt(item, getWorld().registryAccess()));
+        ItemEntity entity = new ItemEntity(getWorld(), position.x(), position.y(), position.z(), FabricAdapter.adapt(item));
         entity.setPickUpDelay(10);
         getWorld().addFreshEntity(entity);
     }

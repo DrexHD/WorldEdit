@@ -277,6 +277,7 @@ public class FabricWorldEdit implements ModInitializer {
 
     private void onStartServer(MinecraftServer minecraftServer) {
         setupRegistries(minecraftServer);
+        FabricAdapter.init(minecraftServer.registryAccess());
 
         config.load();
         WorldEdit.getInstance().getEventBus().post(new PlatformReadyEvent(platform));

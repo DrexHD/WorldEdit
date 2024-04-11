@@ -69,7 +69,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class FabricAdapter {
 
+    private static HolderLookup.Provider provider;
+
     private FabricAdapter() {
+    }
+
+    static void init(HolderLookup.Provider provider) {
+        FabricAdapter.provider = provider;
     }
 
     public static World adapt(net.minecraft.world.level.Level world) {
@@ -205,7 +211,7 @@ public final class FabricAdapter {
         return worldEdit;
     }
 
-    public static BaseBlock adapt(BlockEntity blockEntity, HolderLookup.Provider provider) {
+    public static BaseBlock adapt(BlockEntity blockEntity) {
         int blockStateId = Block.getId(blockEntity.getBlockState());
         BlockState worldEdit = BlockStateIdAccess.getBlockStateById(blockStateId);
         if (worldEdit == null) {
@@ -230,7 +236,7 @@ public final class FabricAdapter {
         return ItemTypes.get(FabricWorldEdit.getRegistry(Registries.ITEM).getKey(item).toString());
     }
 
-    public static ItemStack adapt(BaseItemStack baseItemStack, HolderLookup.Provider provider) {
+    public static ItemStack adapt(BaseItemStack baseItemStack) {
         net.minecraft.nbt.CompoundTag fabricCompound = null;
         if (baseItemStack.getNbt() != null) {
             fabricCompound = NBTConverter.toNative(baseItemStack.getNbt());
@@ -242,7 +248,7 @@ public final class FabricAdapter {
         return itemStack;
     }
 
-    public static BaseItemStack adapt(ItemStack itemStack, HolderLookup.Provider provider) {
+    public static BaseItemStack adapt(ItemStack itemStack) {
         DataComponentPatch componentsPatch = itemStack.getComponentsPatch();
         Tag tagTag = DataComponentPatch.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), componentsPatch).getOrThrow();
         net.minecraft.nbt.CompoundTag tag;
